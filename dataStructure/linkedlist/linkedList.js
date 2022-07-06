@@ -11,7 +11,7 @@ class LinkedList {
     ❑ push(element)：向链表尾部添加一个新元素
         1.若是空链表，则直接将新元素设置为头节点
         2.若链表非空，则迭代链表到尾节点，再将其next指针指向新元素
-        3.count++
+        3.count+1
     ❑ insert(element, position)：向链表的特定位置插入一个新元素。
         1.
         2.
