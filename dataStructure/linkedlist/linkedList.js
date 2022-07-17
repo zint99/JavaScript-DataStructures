@@ -1,11 +1,11 @@
-const { defaultEquals } = require("../util/defaultEquals");
-const { Node } = require("../models/linked-list-models");
+const { defaultEquals } = require("../util/defaultEquals")
+const { Node } = require("../models/linked-list-models")
 
 class LinkedList {
   constructor(equalsFn = defaultEquals) {
-    this.count = 0;
-    this.head = null;
-    this.equalsFn = equalsFn; //比较链表中两个元素是否相等
+    this.count = 0
+    this.head = null
+    this.equalsFn = equalsFn //比较链表中两个元素是否相等
   }
   /*
     ❑ push(element)：向链表尾部添加一个新元素
@@ -28,112 +28,115 @@ class LinkedList {
     ❑ toString()：返回表示整个链表的字符串。由于列表项使用了Node类，就需要重写继承自JavaScript对象默认的toString方法，让其只输出元素的值。
   */
   push(element) {
-    const node = new Node(element);
+    const node = new Node(element)
     if (this.isEmpty()) {
-      this.head = node;
+      this.head = node
     } else {
-      let current = this.head;
+      let current = this.head
       while (current.next !== null) {
-        current = current.next;
+        current = current.next
       }
-      current.next = node;
+      current.next = node
     }
-    this.count++;
+    this.count++
   }
   insert(element, position) {
     if (position >= 0 && position <= this.count) {
-      const node = new Node(element);
+      const node = new Node(element)
       if (position === 0) {
-        node.next = this.head;
-        this.head = node;
+        node.next = this.head
+        this.head = node
       } else {
-        let prev = this.getElementAt(position - 1);
-        current = prev.next;
-        prev.next = node;
-        node.next = current;
+        let prev = this.getElementAt(position - 1)
+        const current = prev.next
+        prev.next = node
+        node.next = current
       }
-      this.count++;
+      this.count++
     }
-    return false;
+    return false
   }
   getElementAt(index) {
-    console.log(Object.getPrototypeOf(this));
     if (index >= 0 && index < this.count) {
-      let current = this.head;
+      let current = this.head
       for (let i = 0; i < index; i++) {
-        current = current.next;
+        current = current.next
       }
-      return current;
+      return current
     }
-    return undefined;
+    return undefined
   }
   remove(element) {
-    const index = this.indexOf(element);
-    const result = this.removeAt(index);
-    return result;
+    const index = this.indexOf(element)
+    const result = this.removeAt(index)
+    return result
   }
   indexOf(element) {
-    if (this.isEmpty()) return -1;
+    if (this.isEmpty()) return -1
     let current = this.head,
-      index = 0;
+      index = 0
     while (!this.equalsFn(current.element, element) && index <= this.count) {
-      current = current.next;
-      index++;
+      current = current.next
+      index++
     }
-    return index === this.count ? -1 : index;
+    return index === this.count ? -1 : index
   }
   removeAt(position) {
     if (position < 0 || position >= this.count || this.isEmpty())
-      return undefined;
-    let removedElement;
+      return undefined
+    let removedElement
     if (position === 0) {
-      removedElement = this.head.element;
-      this.head = this.head.next;
+      removedElement = this.head.element
+      this.head = this.head.next
     } else {
       let current = this.getElementAt(position),
-        prev = this.getElementAt(position - 1); //当前要移除的节点和其上一个节点
-      removedElement = current.element;
-      prev.next = current.next;
+        prev = this.getElementAt(position - 1) //当前要移除的节点和其上一个节点
+      removedElement = current.element
+      prev.next = current.next
     }
-    this.count--;
-    return removedElement;
+    this.count--
+    return removedElement
   }
   isEmpty() {
-    return this.size() === 0;
+    return this.size() === 0
   }
   size() {
-    return this.count;
+    return this.count
   }
   peak() {
-    return this.head;
+    return this.head
   }
   toString() {
-    if (this.isEmpty()) return "";
-    let current = this.head;
+    if (this.isEmpty()) return ""
+    let current = this.head
     let llString = `此节点的element：${current.element}，位置处于链表${
       this.indexOf(current.element) === 0
         ? "头节点"
         : this.indexOf(current.element) === this.count - 1
         ? "尾节点"
         : this.indexOf(current.element)
-    }`;
+    }`
     while (current.next !== null) {
-      current = current.next;
-      llString += `,此节点的element：${current.element}，位置处于链表${
+      current = current.next
+      llString += ` --> 此节点的element：${current.element}，位置处于链表${
         this.indexOf(current.element) === 0
           ? "头节点"
           : this.indexOf(current.element) === this.count - 1
           ? "尾节点"
           : this.indexOf(current.element)
-      }`;
+      }`
     }
-    return llString;
+    return llString
+  }
+  clear() {
+    this.count = 0
+    this.head = null
   }
 }
 
 module.exports = {
   LinkedList,
-};
+}
 
 // const ll = new LinkedList();
 // ll.push("head");
