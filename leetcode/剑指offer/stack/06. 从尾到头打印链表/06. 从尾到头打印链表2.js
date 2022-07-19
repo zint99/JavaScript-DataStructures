@@ -9,6 +9,7 @@
  * @param {ListNode} head
  * @return {number[]}
  */
+//  递归
 var reversePrint = function (head) {
   if (!head) return []
   let result = reversePrint(head.next)
